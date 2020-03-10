@@ -5,3 +5,14 @@ before_install:
     - docker build -t identity404/docker-react -f Dockerfile.dev .
 script:
     - docker run -e CI=true identity404/docker-react npm run test
+deploy:
+    provider: elasticbeanstalk
+    region: "us-east-2"
+    app: "docker"
+    env: "Docker-env"
+    bucker_name: "elasticbeanstalk-us-east-2-334054608221"
+    bucket_path: "docker"
+    on:
+        branch: master
+    access_key_id: $AWS_ACCESS_KEY
+        secure: "$AWS_SECRET_KEY"
